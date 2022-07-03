@@ -4,12 +4,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "futbol_web": {
-      "i18n":{
-        "sourceLocale": "es",
-        "locales": {
-          "en": "src/locale/messages.en.xlf"
-        }
-      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -19,9 +13,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": [
-              "es"
-            ],
             "outputPath": "dist/futbol_web",
             "index": "src/index.html",
             "main": "src/main.ts",
