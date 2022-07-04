@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   serverPath: 'http://localhost:8000/',
-  apiBase: 'http://localhost:4200/app/',
+  apiBase: 'http://localhost:4200/',
   env: 'dev'
 
 };
