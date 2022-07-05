@@ -11,6 +11,7 @@ import { TrackerFormComponent } from './components/tracker-form/tracker-form.com
 
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import {CalendarModule} from 'primeng/calendar';
+import {CardModule} from 'primeng/card';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
@@ -33,6 +34,7 @@ import {StyleClassModule} from 'primeng/styleclass';
     HttpClientModule,
     AutoCompleteModule,
     CalendarModule,
+    CardModule,
     DropdownModule,
     InputNumberModule,
     InputTextModule,
