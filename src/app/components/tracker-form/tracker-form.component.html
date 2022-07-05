@@ -1,14 +1,16 @@
 <div class="grid p-fluid main-form-panel">
     <div class="col-12 md:col-6 form-panel">
-        <p-panel header="Jugador" >
+        <p-card>
+            <ng-template pTemplate="header">
+                <span class="p-panel-title ng-tns-c62-8 ng-star-inserted" id="p-panel-0_header">Jugador</span>
+            </ng-template>
             <div class="grid p-fluid">
                 <div class="col-12 xs:col-6">
                     <label>Nombre</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="posicion2.selected" [suggestions]="posicion2.filteredList" (completeMethod)="posicion2.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -35,11 +37,10 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-10">
                     <label>Equipo</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="equipo.selected" [suggestions]="equipo.filteredList" (completeMethod)="equipo.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -56,11 +57,10 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-4">
                     <label>Pie</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="pie.selected" [suggestions]="pie.filteredList" (completeMethod)="pie.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -68,11 +68,10 @@
                 
                 <div class="col-12 md:col-4">
                     <label>Somatotipo</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="somatotipo.selected" [suggestions]="somatotipo.filteredList" (completeMethod)="somatotipo.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -80,8 +79,8 @@
 
                 <div class="col-12 md:col-4">
                     <label>Estatura</label>
-                    <p-inputNumber [(ngModel)]="jugadorNumero" inputId="jNumero" inputId="minmax" mode="decimal" [min]="149" [max]="206"></p-inputNumber>
-                    <p-slider [(ngModel)]="jugadorNumero" [min]="149" [max]="206"></p-slider>
+                    <p-inputNumber [(ngModel)]="jugadorEstatura" inputId="jEstatura" inputId="minmax" mode="decimal" [min]="149" [max]="206"></p-inputNumber>
+                    <p-slider [(ngModel)]="jugadorEstatura" [min]="149" [max]="206"></p-slider>
                 </div>
             </div>
 
@@ -90,11 +89,11 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-6">
                     <label>País Nacimiento</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
-                            <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                    <p-autoComplete [(ngModel)]="paisNacimiento.selected" [suggestions]="paisNacimiento.filteredList" (completeMethod)="paisNacimiento.filter(getCatalogService(), $event)" field="nombre" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
+                            <div class="p-d-flex p-ai-center country-item">
+                                <img src="assets/img/flag/flag_placeholder.png" [class]="'flag flag-' + value.codigoISO2.toLowerCase()" />
+                                <div class="contry-name">{{value.nombre}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -102,11 +101,11 @@
                 
                 <div class="col-12 md:col-6">
                     <label>Nacionalidad</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
-                            <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                    <p-autoComplete [(ngModel)]="paisNacionalidad.selected" [suggestions]="paisNacionalidad.filteredList" (completeMethod)="paisNacionalidad.filter(getCatalogService(), $event)" field="nombre" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
+                            <div class="p-d-flex p-ai-center country-item">
+                                <img src="assets/img/flag/flag_placeholder.png" [class]="'flag flag-' + value.codigoISO2.toLowerCase()" />
+                                <div>{{value.nombre}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -118,11 +117,10 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-6">
                     <label>Posición 1</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="posicion1.selected" [suggestions]="posicion1.filteredList" (completeMethod)="posicion1.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -130,22 +128,24 @@
                 
                 <div class="col-12 md:col-6">
                     <label>Posición 2</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="posicion2.selected" [suggestions]="posicion2.filteredList" (completeMethod)="posicion2.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
                 </div>
             </div>
-        </p-panel>
+        </p-card>
     </div>
 
 
     <div class="col-12 md:col-6 form-panel">
-        <p-panel header="Valoración">
+        <p-card>
+            <ng-template pTemplate="header">
+                <span class="p-panel-title ng-tns-c62-8 ng-star-inserted" id="p-panel-0_header">Valoración</span>
+            </ng-template>
             <div class="grid p-fluid">
                 <div class="col-12 md:col-8">
                     <label>Autor</label>
@@ -154,7 +154,7 @@
                 
                 <div class="col-12 md:col-4">
                     <label>Fecha partido</label>
-                    <p-calendar [(ngModel)]="valoracionFechaPartido" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                    <p-calendar [(ngModel)]="valFechaPartido" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
                 </div>
             </div>
 
@@ -162,16 +162,15 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-8">
                     <label>Equipo jugador</label>
-                    <input type="text" pInputText [disabled]="true" [(ngModel)]="jugadorApodo"/>
+                    <input type="text" pInputText [disabled]="true" [(ngModel)]="equipo.selected ? equipo.selected.descripcion : equipo.selected"/>
                 </div>
                 
                 <div class="col-12 md:col-4">
                     <label>Visualización</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="visualizacion.selected" [suggestions]="visualizacion.filteredList" (completeMethod)="visualizacion.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -183,16 +182,15 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-8">
                     <label>Campeonato</label>
-                    <input type="text" pInputText [disabled]="true" [(ngModel)]="jugadorApodo"/>
+                    <input type="text" pInputText [(ngModel)]="valCampeonato"/>
                 </div>
                 
                 <div class="col-12 md:col-4">
                     <label>Seguimiento</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="seguimiento.selected" [suggestions]="seguimiento.filteredList" (completeMethod)="seguimiento.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -203,22 +201,20 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-6">
                     <label>Local</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="local.selected" [suggestions]="local.filteredList" (completeMethod)="local.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
                 </div>
                 <div class="col-12 md:col-6">
                     <label>Visitante</label>
-                    <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
-                        <ng-template let-country pTemplate="item">
+                    <p-autoComplete [(ngModel)]="visitante.selected" [suggestions]="visitante.filteredList" (completeMethod)="visitante.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                        <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <!--img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" /-->
-                                <div>{{country.descripcion}}</div>
+                                <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -228,9 +224,9 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-12">
                     <label>Descripción</label>
-                    <textarea rows="5" [autoResize]="true" pInputTextarea maxlength="1000"></textarea>
+                    <textarea rows="5" [autoResize]="true" pInputTextarea maxlength="1000" [(ngModel)]="valDescripcion"></textarea>
                 </div>
             </div>
-        </p-panel>
+        </p-card>
     </div>
 </div>

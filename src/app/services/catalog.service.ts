@@ -10,11 +10,27 @@ export class CatalogService {
 
   constructor(private http: HttpClient) { }
 
-  async getCountries() {
+  
+
+  async getCatalog(table: string, filter: string) {
+    let urlFilter = ''
+    if (filter){
+      urlFilter = '?desc='+filter
+    }
     const basePath: string = environment.serverPath + 'catalog/';
-    const get$ = this.http.get( basePath + 'perfil');
-    const res2 = await lastValueFrom(get$)
-    return res2;
-    
+    const get$ = this.http.get( basePath + table + urlFilter);
+    const res = await lastValueFrom(get$)
+    return res;
+  }
+
+  async getPaises(filter: string) {
+    let urlFilter = ''
+    if (filter){
+      urlFilter = '?nombre='+filter
+    }
+    const basePath: string = environment.serverPath + 'catalog/pais';
+    const get$ = this.http.get( basePath + urlFilter);
+    const res = await lastValueFrom(get$)
+    return res;
   }
 }
