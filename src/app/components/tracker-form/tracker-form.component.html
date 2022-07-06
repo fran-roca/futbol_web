@@ -1,3 +1,20 @@
+<p-toast position="bottom-right"></p-toast>
+
+<p-toast position="bottom-right" key="c" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            
+        </div>
+    </ng-template>
+</p-toast>
+
+
+
 <div class="grid p-fluid main-form-panel">
     <div class="col-12 md:col-6 form-panel">
         <p-card>
@@ -7,10 +24,10 @@
             <div class="grid p-fluid">
                 <div class="col-12 xs:col-6">
                     <label>Nombre</label>
-                    <p-autoComplete [(ngModel)]="posicion2.selected" [suggestions]="posicion2.filteredList" (completeMethod)="posicion2.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="jugador.selected" [suggestions]="jugador.filteredList" (completeMethod)="jugador.filter(getJugadorService(), $event)" (onSelect)="loadJugadorInfo()" field="nombre" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
-                                <div>{{value.descripcion}}</div>
+                                <div>{{value.nombre}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
@@ -37,7 +54,7 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-10">
                     <label>Equipo</label>
-                    <p-autoComplete [(ngModel)]="equipo.selected" [suggestions]="equipo.filteredList" (completeMethod)="equipo.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="equipo.selected" [forceSelection]="true" [suggestions]="equipo.filteredList" (completeMethod)="equipo.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -57,7 +74,7 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-4">
                     <label>Pie</label>
-                    <p-autoComplete [(ngModel)]="pie.selected" [suggestions]="pie.filteredList" (completeMethod)="pie.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="pie.selected" [forceSelection]="true" [suggestions]="pie.filteredList" (completeMethod)="pie.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -68,7 +85,7 @@
                 
                 <div class="col-12 md:col-4">
                     <label>Somatotipo</label>
-                    <p-autoComplete [(ngModel)]="somatotipo.selected" [suggestions]="somatotipo.filteredList" (completeMethod)="somatotipo.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="somatotipo.selected" [forceSelection]="true" [suggestions]="somatotipo.filteredList" (completeMethod)="somatotipo.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -89,7 +106,7 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-6">
                     <label>País Nacimiento</label>
-                    <p-autoComplete [(ngModel)]="paisNacimiento.selected" [suggestions]="paisNacimiento.filteredList" (completeMethod)="paisNacimiento.filter(getCatalogService(), $event)" field="nombre" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="paisNacimiento.selected" [forceSelection]="true" [suggestions]="paisNacimiento.filteredList" (completeMethod)="paisNacimiento.filter(getCatalogService(), $event)" field="nombre" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center country-item">
                                 <img src="assets/img/flag/flag_placeholder.png" [class]="'flag flag-' + value.codigoISO2.toLowerCase()" />
@@ -101,7 +118,7 @@
                 
                 <div class="col-12 md:col-6">
                     <label>Nacionalidad</label>
-                    <p-autoComplete [(ngModel)]="paisNacionalidad.selected" [suggestions]="paisNacionalidad.filteredList" (completeMethod)="paisNacionalidad.filter(getCatalogService(), $event)" field="nombre" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="paisNacionalidad.selected" [forceSelection]="true" [suggestions]="paisNacionalidad.filteredList" (completeMethod)="paisNacionalidad.filter(getCatalogService(), $event)" field="nombre" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center country-item">
                                 <img src="assets/img/flag/flag_placeholder.png" [class]="'flag flag-' + value.codigoISO2.toLowerCase()" />
@@ -117,7 +134,7 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-6">
                     <label>Posición 1</label>
-                    <p-autoComplete [(ngModel)]="posicion1.selected" [suggestions]="posicion1.filteredList" (completeMethod)="posicion1.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="posicion1.selected" [forceSelection]="true" [suggestions]="posicion1.filteredList" (completeMethod)="posicion1.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -128,7 +145,7 @@
                 
                 <div class="col-12 md:col-6">
                     <label>Posición 2</label>
-                    <p-autoComplete [(ngModel)]="posicion2.selected" [suggestions]="posicion2.filteredList" (completeMethod)="posicion2.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="posicion2.selected" [forceSelection]="true" [suggestions]="posicion2.filteredList" (completeMethod)="posicion2.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -137,8 +154,32 @@
                     </p-autoComplete>
                 </div>
             </div>
+
+            <div class="grid p-fluid">
+                <div class="col-12">
+                    <label>Perfiles</label>
+                    <p-multiSelect [options]="perfil.filteredList" [(ngModel)]="perfil.selected" defaultLabel="Seleccione los perfiles" optionLabel="descripcion" display="chip"></p-multiSelect>
+                </div>
+            </div>
+
+            <ng-template pTemplate="footer">
+                <div class="grid p-fluid">
+                    <div class="col-6 md:col-9"></div>
+                    <div class="col-6 md:col-3" >
+                        <p-button *ngIf = 'isJugador(); else add' label="Editar" icon="pi pi-user-edit" iconPos="right" (onClick)="update()"></p-button>
+                    </div>
+
+                    <ng-template #add>
+                        <p-button  label="Añadir" icon="pi pi-user-plus" iconPos="right" (onClick)="save()"></p-button>
+                    </ng-template>
+                </div>
+            </ng-template>
         </p-card>
     </div>
+
+
+
+
 
 
     <div class="col-12 md:col-6 form-panel">
@@ -148,8 +189,8 @@
             </ng-template>
             <div class="grid p-fluid">
                 <div class="col-12 md:col-8">
-                    <label>Autor</label>
-                    <input type="text" pInputText [(ngModel)]="jugadorApodo"/>
+                    <label>Scouter</label>
+                    <input type="text" pInputText [(ngModel)]="valScout"/>
                 </div>
                 
                 <div class="col-12 md:col-4">
@@ -167,7 +208,7 @@
                 
                 <div class="col-12 md:col-4">
                     <label>Visualización</label>
-                    <p-autoComplete [(ngModel)]="visualizacion.selected" [suggestions]="visualizacion.filteredList" (completeMethod)="visualizacion.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="visualizacion.selected" [forceSelection]="true" [suggestions]="visualizacion.filteredList" (completeMethod)="visualizacion.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -187,7 +228,7 @@
                 
                 <div class="col-12 md:col-4">
                     <label>Seguimiento</label>
-                    <p-autoComplete [(ngModel)]="seguimiento.selected" [suggestions]="seguimiento.filteredList" (completeMethod)="seguimiento.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="seguimiento.selected" [forceSelection]="true" [suggestions]="seguimiento.filteredList" (completeMethod)="seguimiento.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -201,7 +242,7 @@
             <div class="grid p-fluid">
                 <div class="col-12 md:col-6">
                     <label>Local</label>
-                    <p-autoComplete [(ngModel)]="local.selected" [suggestions]="local.filteredList" (completeMethod)="local.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="local.selected" [forceSelection]="true" [suggestions]="local.filteredList" (completeMethod)="local.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
@@ -211,7 +252,7 @@
                 </div>
                 <div class="col-12 md:col-6">
                     <label>Visitante</label>
-                    <p-autoComplete [(ngModel)]="visitante.selected" [suggestions]="visitante.filteredList" (completeMethod)="visitante.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="visitante.selected" [forceSelection]="true" [suggestions]="visitante.filteredList" (completeMethod)="visitante.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.descripcion}}</div>
