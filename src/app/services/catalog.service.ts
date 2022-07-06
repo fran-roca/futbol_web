@@ -23,6 +23,13 @@ export class CatalogService {
     return res;
   }
 
+  async getCatalogById(table: string, id: number) {
+    const basePath: string = environment.serverPath + 'catalog/';
+    const get$ = this.http.get( basePath + table + '?id='+id);
+    const res = await lastValueFrom(get$)
+    return res;
+  }
+
   async getPaises(filter: string) {
     let urlFilter = ''
     if (filter){
@@ -30,6 +37,13 @@ export class CatalogService {
     }
     const basePath: string = environment.serverPath + 'catalog/pais';
     const get$ = this.http.get( basePath + urlFilter);
+    const res = await lastValueFrom(get$)
+    return res;
+  }
+
+  async getPaisesById(id: number) {
+    const basePath: string = environment.serverPath + 'catalog/pais';
+    const get$ = this.http.get( basePath + '?id='+id);
     const res = await lastValueFrom(get$)
     return res;
   }
