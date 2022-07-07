@@ -13,11 +13,12 @@ export class Jugador {
     id_pais_nacionalidad!: number;
     id_posicion1!: number;
     id_posicion2!: number;
+    id_perfiles!: any[];
 
     constructor(id_jugador: number, nombre: string, apodo: string, anio: number, id_equipo: number,
         numero: number, id_pie: number, id_somatotipo: number, estatura: number, 
         id_pais: number, id_pais_nacionalidad: number, id_posicion1: number, 
-        id_posicion2: number) { 
+        id_posicion2: number, id_perfiles: any[]) { 
             this.id_jugador = id_jugador;
             this.nombre = nombre;
             this.apodo =apodo;
@@ -31,6 +32,7 @@ export class Jugador {
             this.id_pais_nacionalidad =  id_pais_nacionalidad;
             this.id_posicion1 = id_posicion1;
             this.id_posicion2 = id_posicion2;
+            this.id_perfiles = id_perfiles;
         }
 }
   
