@@ -39,4 +39,11 @@ export class JugadorService {
     const post$ = await this.http.post<any>(this.basePath, JSON.stringify(data), options)
     return post$
   }
+
+  async putJugador(data: Jugador) {
+    const options = {headers: {'Content-Type': 'application/json'}};
+
+    const put$ = await this.http.put<any>(this.basePath, JSON.stringify(data), options)
+    return put$
+  }
 }
