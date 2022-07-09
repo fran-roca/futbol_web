@@ -60,7 +60,7 @@ export class TrackerFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.perfil.filter(this.catalogService, '');
+    this.catalogService.getCatalog(this.perfil.table, '').then(data => this.perfil.filteredList = data);
   }
 
   getCatalogService(){

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Valoracion } from '../entities/valoracion';
 
@@ -11,6 +12,19 @@ export class ValoracionService {
   basePath: string = environment.serverPath + 'valoracion';
 
   constructor(private http: HttpClient) { }
+
+  async getValoracion(valoracionIds: number[]= [], jugadorId:number = 0) {
+    let urlFilter = ''
+    if (valoracionIds.length>0){
+      let ids = Array.prototype.map.call(valoracionIds, id => id).toString(); 
+      console.log(ids)
+      urlFilter = '?id_valoracion='+ids
+    }else if (jugadorId>0){
+      urlFilter = '?id_jugador='+jugadorId
+    }
+    const get$ = this.http.get<any>( this.basePath + urlFilter);
+    return get$
+  }
 
   postValoracion(data: Valoracion) {
     const options = {headers: {'Content-Type': 'application/json'}};

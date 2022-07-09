@@ -1,0 +1,67 @@
+<p-toast></p-toast>
+
+<div class="card" class="col-12">
+    
+
+    <p-table #dt [value]="valoraciones" [rows]="10" [paginator]="true" 
+        [globalFilterFields]="['descripcion_scout','fecha','descripcion_visualizacion',
+        'campeonato', 'descripcion_local', 'descripcion_visitante', 'descripcion_seguimiento']" 
+        responsiveLayout="scroll"
+        [(selection)]="selectedValoraciones" [rowHover]="true" dataKey="id_valoracion"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Valoraciones</h5>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="descripcion_scout">Scouter <p-sortIcon field="descripcion_scout"></p-sortIcon></th>
+                <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+                <th pSortableColumn="descripcion_visualizacion">Visualizacion <p-sortIcon field="descripcion_visualizacion"></p-sortIcon></th>
+                <th pSortableColumn="campeonato">Campeonato <p-sortIcon field="campeonato"></p-sortIcon></th>
+                <th pSortableColumn="descripcion_local">Local <p-sortIcon field="descripcion_local"></p-sortIcon></th>
+                <th pSortableColumn="descripcion_visitante">Visitante <p-sortIcon field="descripcion_visitante"></p-sortIcon></th>
+                <th pSortableColumn="descripcion_seguimiento">Seguimiento <p-sortIcon field="descripcion_seguimiento"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-valoracion>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="valoracion"></p-tableCheckbox>
+                </td>
+                <td>{{valoracion.descripcion_scout}}</td>
+                <td>{{valoracion.fecha}}</td>
+                <td>{{valoracion.descripcion_visualizacion}}</td>
+                <td>{{valoracion.campeonato}}</td>
+                <td>{{valoracion.descripcion_local}}</td>
+                <td>{{valoracion.descripcion_visitante}}</td>
+                <td>{{valoracion.descripcion_seguimiento}}</td>
+                <td>
+                    <!--(click)="deleteProduct(valoracion)"-->
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" ></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                Hay {{valoraciones ? valoraciones.length : 0 }} en total.
+            </div>
+        </ng-template>
+    </p-table>
+
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedValoraciones()" ></button>
+            <!--[disabled]="!selectedProducts || !selectedProducts.length"-->
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template>
+    </p-toolbar>
+</div>
