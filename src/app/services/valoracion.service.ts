@@ -17,7 +17,6 @@ export class ValoracionService {
     let urlFilter = ''
     if (valoracionIds.length>0){
       let ids = Array.prototype.map.call(valoracionIds, id => id).toString(); 
-      console.log(ids)
       urlFilter = '?id_valoracion='+ids
     }else if (jugadorId>0){
       urlFilter = '?id_jugador='+jugadorId

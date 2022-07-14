@@ -15,7 +15,6 @@ export class CatalogAutocomplete implements AutocompleteDropdown{
       let query = event.query;
       catalogService.getCatalog(this.table, query).then(list => {
         this.filteredList = list;
-        console.log(list)
       });
     }
 }

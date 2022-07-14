@@ -12,7 +12,6 @@ export class PaisAutocomplete implements AutocompleteDropdown{
       let query = event.query;
       catalogService.getPaises(query).then(list => {
         this.filteredList = list;
-        console.log(list)
       });
     }
 }

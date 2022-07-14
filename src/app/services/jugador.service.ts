@@ -14,21 +14,17 @@ export class JugadorService {
   constructor(private http: HttpClient) { }
 
 
-  async getJugador(filter: string, min: string='') {
+  async getJugador(filter: string) {
     let urlFilter = ''
-    if (filter && min){
-      urlFilter = '?nombre='+filter+'&min='+min
-    }else if (filter){
+    if (filter){
       urlFilter = '?nombre='+filter
-    }else if (min){
-      urlFilter = '?min='+min
     }
     const get$ = this.http.get( this.basePath + urlFilter);
     const res = await lastValueFrom(get$)
     return res;
   }
 
-  async getJugadorById(id: number, min: string='') {
+  async getJugadorById(id: number) {
     const get$ = this.http.get<Jugador>( this.basePath + '?id='+id);
     return get$;
   }
