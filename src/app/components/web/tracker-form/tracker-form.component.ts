@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
+import { Subject } from "rxjs";
 
 import { CatalogAutocomplete } from 'src/app/entities/catalog-autocomplete';
 import { Constants } from 'src/app/utils/constants';
@@ -14,6 +15,7 @@ import { Jugador } from 'src/app/entities/jugador';
 import { Catalog } from 'src/app/entities/catalog';
 import { Pais } from 'src/app/entities/pais';
 import { Valoracion } from 'src/app/entities/valoracion';
+import { TokenStorageService } from '../../authentication/_services/token-storage.service';
 
 @Component({
   selector: 'tracker-form',
@@ -36,7 +38,6 @@ export class TrackerFormComponent implements OnInit {
   perfil = new CatalogAutocomplete(Constants.TABLE_PERFIL);
   paisNacimiento = new PaisAutocomplete();
   paisNacionalidad = new PaisAutocomplete();
-  scouter = new CatalogAutocomplete(Constants.TABLE_SCOUT)
   visualizacion = new CatalogAutocomplete(Constants.TABLE_VISUALIZACION);
   seguimiento = new CatalogAutocomplete(Constants.TABLE_SEGUIMIENTO);
   local = new CatalogAutocomplete(Constants.TABLE_EQUIPO);
@@ -50,17 +51,20 @@ export class TrackerFormComponent implements OnInit {
   valFechaPartido: Date = new Date();
   valCampeonato!: string;
   valDescripcion!: string;
+
+  loadFormSubject: Subject<boolean> = new Subject<boolean>();
   
   constructor(
     private primengConfig: PrimeNGConfig,
     private messageService: MessageService,
     private catalogService: CatalogService,
     private jugadorService: JugadorService,
-    private valoracionService: ValoracionService) { }
+    private valoracionService: ValoracionService,
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.perfil.filter(this.catalogService, '');
+    this.catalogService.getCatalog(this.perfil.table, '').then(data => this.perfil.filteredList = data);
   }
 
   getCatalogService(){
@@ -74,22 +78,28 @@ export class TrackerFormComponent implements OnInit {
   async loadJugadorInfo(){
     (await this.jugadorService.getJugadorById(this.jugador.selected.id_jugador)).subscribe({
       next: (response: any) => {
-        this.jugadorApodo = response.apodo;
-        this.jugadorAnio = response.anio;
-        this.equipo.selected = new Catalog(response.id_equipo, response.des_equipo)
-        this.jugadorNumero = response.numero;
-        this.pie.selected = new Catalog(response.id_pie, response.des_pie);
-        this.somatotipo.selected = new Catalog(response.id_somatotipo, response.des_somatotipo);
-        this.jugadorEstatura = response.estatura;
-        this.paisNacimiento.selected = new Pais(response.id_pais, response.nombre_pais);
-        this.paisNacionalidad.selected = new Pais(response.id_pais_nacionalidad, response.nombre_nacionalidad);
-        this.posicion1.selected = new Catalog(response.id_posicion1, response.des_posicion1);
-        this.posicion2.selected = new Catalog(response.id_posicion2, response.des_posicion2);
-        this.perfil.selected = response.perfiles;
+        console.log(response)
+        const jugador = response.jugador;
+        this.jugadorApodo = jugador.apodo;
+        this.jugadorAnio = jugador.anio;
+        this.equipo.selected = jugador.equipo
+        this.jugadorNumero = jugador.numero;
+        this.pie.selected = jugador.pie;
+        this.somatotipo.selected = jugador.somatotipo;
+        this.jugadorEstatura = jugador.estatura;
+        this.paisNacimiento.selected = jugador.pais;
+        this.paisNacionalidad.selected = jugador.nacionalidad;
+        this.posicion1.selected = jugador.posicion1;
+        this.posicion2.selected = jugador.posicion2;
+        this.perfil.selected = jugador.perfiles;
+        
       },
       error: (err: any) => {
         console.log(err);
         this.messageService.add({severity:"error", summary:'Error', detail:'Error cargando el jugador'});
+      },
+      complete: () => {
+        this.loadValoracionTable();
       },
     });
   }
@@ -98,7 +108,7 @@ export class TrackerFormComponent implements OnInit {
     let perfiles: number[] = [];
 
     this.perfil.selected.forEach((element:any) => {
-      perfiles.push(element.id);
+      perfiles.push(element.id_perfil);
     });
 
     return new Jugador(idJugador, this.isJugador()?this.jugador.selected.nombre:this.jugador.selected, this.jugadorApodo, this.jugadorAnio, this.equipo.selected?.id, this.jugadorNumero,
@@ -109,7 +119,8 @@ export class TrackerFormComponent implements OnInit {
   async saveJugador() {
     (await (this.jugadorService.postJugador(this.instanceJugador(0)))).subscribe({
       next: (response: any) => {
-        this.jugador.selected = {'id_jugador': response.id_jugador, 'nombre': response.nombre}
+        console.log(response)
+        this.jugador.selected = {'id_jugador': response.jugador.id_jugador, 'nombre': response.jugador.nombre}
         this.messageService.add({severity:"success", summary:'Success', detail:'Nuevo jugador guardado'});
         
       },
@@ -119,6 +130,7 @@ export class TrackerFormComponent implements OnInit {
         
       },
       complete: () => {
+        this.loadValoracionTable();
         console.log('complete saveJugador');
       },
     });
@@ -127,7 +139,7 @@ export class TrackerFormComponent implements OnInit {
   async updateJugador(){
     (await (this.jugadorService.putJugador(this.instanceJugador(this.jugador.selected.id_jugador)))).subscribe({
       next: (response: any) => {
-        this.messageService.add({severity:"success", summary:'Success', detail:'El jugador ha sido edita.'});
+        this.messageService.add({severity:"success", summary:'Success', detail:'El jugador ha sido editado.'});
         
       },
       error: (err: any) => {
@@ -143,15 +155,17 @@ export class TrackerFormComponent implements OnInit {
 
   async saveValoracion() {
     
-    let valoracion = new Valoracion(0,this.scouter.selected?.id, this.valFechaPartido, this.visualizacion.selected?.id,
-      this.equipo.selected?.id, this.local.selected?.id, this.visitante.selected?.id, this.valCampeonato,
-      this.seguimiento.selected?.id, this.valDescripcion, this.jugador.selected?.id_jugador);
-
+    let valoracion = new Valoracion(0,
+      this.tokenStorage.getUser().id_user, this.valFechaPartido, this.visualizacion.selected?.id_visualizacion,
+      this.equipo.selected?.id_equipo, this.local.selected?.id_equipo, this.visitante.selected?.id_equipo, this.valCampeonato,
+      this.seguimiento.selected?.id_seguimiento, this.valDescripcion, this.jugador.selected?.id_jugador);
+      console.log(valoracion);
+      console.log(this.equipo);
       (await (this.valoracionService.postValoracion(valoracion))).subscribe({
         next: (response: any) => {
           this.cleanValoracion()
           this.messageService.add({severity:"success", summary:'Valoración guardada', detail:'Nueva valoración guardada'});
-          
+          this.loadValoracionTable();
         },
         error: (err: any) => {
           console.log(err);
@@ -164,8 +178,11 @@ export class TrackerFormComponent implements OnInit {
       });
   }
 
+  loadValoracionTable(){
+    this.loadFormSubject.next(true);
+  }
+
   cleanValoracion(){
-    this.scouter.selected = null;
     this.visualizacion.selected = null;
     this.local.selected = null;
     this.visitante.selected = null;

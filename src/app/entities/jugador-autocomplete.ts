@@ -11,9 +11,8 @@ export class JugadorAutocomplete implements AutocompleteDropdown{
 
     filter(jugadorService: JugadorService, event: any) {
       let query = event.query;
-      jugadorService.getJugador(query, "True").then(list => {
+      jugadorService.getJugador(query).then(list => {
         this.filteredList = list;
-        console.log(list)
       });
     }
 }

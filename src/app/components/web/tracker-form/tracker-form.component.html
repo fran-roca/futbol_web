@@ -1,6 +1,6 @@
-<p-toast position="bottom-right"></p-toast>
+<p-toast position="top-right"></p-toast>
 
-<p-toast position="bottom-right" key="c" [baseZIndex]="5000">
+<p-toast position="top-right" key="c" [baseZIndex]="5000">
     <ng-template let-message pTemplate="message">
         <div class="flex flex-column" style="flex: 1">
             <div class="text-center">
@@ -24,7 +24,7 @@
             <div class="grid p-fluid">
                 <div class="col-12 xs:col-6">
                     <label>Nombre</label>
-                    <p-autoComplete [(ngModel)]="jugador.selected" [suggestions]="jugador.filteredList" (completeMethod)="jugador.filter(getJugadorService(), $event)" (onSelect)="loadJugadorInfo()" field="nombre" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="jugador.selected" [suggestions]="jugador.filteredList?.jugadores" (completeMethod)="jugador.filter(getJugadorService(), $event)" (onSelect)="loadJugadorInfo()" field="nombre" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.nombre}}</div>
@@ -188,28 +188,15 @@
                 <span class="p-panel-title ng-tns-c62-8 ng-star-inserted" id="p-panel-0_header">Valoración</span>
             </ng-template>
             <div class="grid p-fluid">
-                <div class="col-12 md:col-8">
-                    <label>Scouter</label>
-                    <p-autoComplete [(ngModel)]="scouter.selected" [forceSelection]="true" [suggestions]="scouter.filteredList" (completeMethod)="scouter.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
+                <div class="col-12 md:col-4">
+                    <label>Seguimiento</label>
+                    <p-autoComplete [(ngModel)]="seguimiento.selected" [forceSelection]="true" [suggestions]="seguimiento.filteredList" (completeMethod)="seguimiento.filter(getCatalogService(), $event)" [class]="'seguimiento-sel-' + seguimiento.selected?.id_seguimiento" field="descripcion" [dropdown]="true">
                         <ng-template let-value pTemplate="item">
-                            <div class="p-d-flex p-ai-center">
+                            <div class="p-d-flex p-ai-center" [class]="'seguimiento seguimiento-' + value.id_seguimiento">
                                 <div>{{value.descripcion}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
-                </div>
-                
-                <div class="col-12 md:col-4">
-                    <label>Fecha partido</label>
-                    <p-calendar [(ngModel)]="valFechaPartido" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
-                </div>
-            </div>
-
-
-            <div class="grid p-fluid">
-                <div class="col-12 md:col-8">
-                    <label>Equipo jugador</label>
-                    <input type="text" pInputText [disabled]="true" [(ngModel)]="equipo.selected ? equipo.selected.descripcion : equipo.selected"/>
                 </div>
                 
                 <div class="col-12 md:col-4">
@@ -222,25 +209,19 @@
                         </ng-template>
                     </p-autoComplete>
                 </div>
+
+                <div class="col-12 md:col-4">
+                    <label>Fecha partido</label>
+                    <p-calendar [(ngModel)]="valFechaPartido" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                </div>
             </div>
 
             
 
             <div class="grid p-fluid">
-                <div class="col-12 md:col-8">
+                <div class="col-12">
                     <label>Campeonato</label>
                     <input type="text" pInputText [(ngModel)]="valCampeonato"/>
-                </div>
-                
-                <div class="col-12 md:col-4">
-                    <label>Seguimiento</label>
-                    <p-autoComplete [(ngModel)]="seguimiento.selected" [forceSelection]="true" [suggestions]="seguimiento.filteredList" (completeMethod)="seguimiento.filter(getCatalogService(), $event)" field="descripcion" [dropdown]="true">
-                        <ng-template let-value pTemplate="item">
-                            <div class="p-d-flex p-ai-center">
-                                <div>{{value.descripcion}}</div>
-                            </div>
-                        </ng-template>
-                    </p-autoComplete>
                 </div>
             </div>
 
@@ -286,3 +267,5 @@
         </p-card>
     </div>
 </div>
+
+<valoracion-table [jugador]="jugador.selected" [loadFormSubject]="loadFormSubject.asObservable()" *ngIf = 'isJugador()'></valoracion-table>
