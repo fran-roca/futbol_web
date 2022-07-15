@@ -23,21 +23,24 @@
       <div class="col-12">
         <label>Username</label>
         <span class="p-float-label">
-            <input id="float-input" type="text" pInputText [(ngModel)]="form.username"> 
+            <input type="text" pInputText [(ngModel)]="form.username"> 
+            <small *ngIf = 'validarRegister &&  !form.username' class="p-error block">Campo obligatorio</small>
         </span>
       </div>
 
         <div class="col-12">
           <label>Email</label>
           <span class="p-float-label">
-              <input id="float-input" type="text" pInputText [(ngModel)]="form.email"> 
+              <input type="text" pInputText [(ngModel)]="form.email"> 
+              <small *ngIf = 'validarRegister &&  !form.email' class="p-error block">Campo obligatorio</small>
           </span>
         </div>
         
         <div class="col-12">
           <label>Password</label>
           <span class="p-float-label">
-              <input id="float-input" type="password" pInputText [(ngModel)]="form.password"> 
+              <input type="password" pInputText [(ngModel)]="form.password"> 
+              <small *ngIf = 'validarRegister &&  !form.password' class="p-error block">Campo obligatorio</small>
           </span>
         </div>
         <div>

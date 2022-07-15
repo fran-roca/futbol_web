@@ -13,14 +13,9 @@ export class ValoracionService {
 
   constructor(private http: HttpClient) { }
 
-  async getValoracion(valoracionIds: number[]= [], jugadorId:number = 0) {
-    let urlFilter = ''
-    if (valoracionIds.length>0){
-      let ids = Array.prototype.map.call(valoracionIds, id => id).toString(); 
-      urlFilter = '?id_valoracion='+ids
-    }else if (jugadorId>0){
-      urlFilter = '?id_jugador='+jugadorId
-    }
+  async getValoracion(jugadorId:number = 0) {
+    let urlFilter = '?id_jugador='+jugadorId
+    
     const get$ = this.http.get<any>( this.basePath + urlFilter);
     return get$
   }
@@ -30,5 +25,11 @@ export class ValoracionService {
 
     const post$ = this.http.post<any>(this.basePath, JSON.stringify(data), options)
     return post$
+  }
+
+  deleteValoracion(id_valoracion: number) {
+    let urlFilter = '?id_valoracion='+id_valoracion
+    const delete$ = this.http.delete<any>( this.basePath + urlFilter);
+    return delete$
   }
 }

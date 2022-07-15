@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { MessageService } from 'primeng/api';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { Validation } from 'src/app/utils/validation';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   password!: string;
   isLoggedIn = false;
   isLoginFailed = false;
+  validarLogin = false;
   errorMessage = '';
   roles: string[] = [];
 
@@ -30,25 +32,34 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  validateLogin(){
+    this.validarLogin = true;
+    let required = [this.email, this.password]
+
+
+    return Validation.validateRequired(required);
+  }
+
   login(): void {
+    if(this.validateLogin()){
+      this.authService.login(this.email, this.password).subscribe({
+        next: data => {
+          this.tokenStorage.saveToken(data);
+          this.tokenStorage.saveUser(data);
 
-    this.authService.login(this.email, this.password).subscribe({
-      next: data => {
-        this.tokenStorage.saveToken(data);
-        this.tokenStorage.saveUser(data);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser().roles;
+          this.router.navigate(['/seguimiento'])
+        },
+        error: err => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+          this.messageService.add({severity:"error", summary:'Error', detail:err.error});
 
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        this.router.navigate(['/seguimiento'])
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-        this.messageService.add({severity:"error", summary:'Error', detail:err.error});
-
-      }
-    });
+        }
+      });
+    }
   }
 
   reloadPage(): void {

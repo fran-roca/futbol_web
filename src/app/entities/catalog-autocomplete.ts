@@ -1,15 +1,13 @@
 import { AutocompleteDropdown } from "./autocomplete-dropdown";
 import { CatalogService } from "../services/catalog.service";
 
-export class CatalogAutocomplete implements AutocompleteDropdown{
+export class CatalogAutocomplete extends AutocompleteDropdown{
     table!: string;
-    list: any;
-    filteredList: any;
-    selected: any;
 
     constructor( table:string) {
-        this.table = table
-     }
+      super();
+      this.table = table;
+    }
 
     filter(catalogService: CatalogService, event: any) {
       let query = event.query;
