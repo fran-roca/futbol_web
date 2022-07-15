@@ -218,6 +218,7 @@ export class TrackerFormComponent implements OnInit {
     this.valCampeonato = '';
     this.seguimiento.selected = null;
     this.valDescripcion = '';
+    this.validarValoracion = false;
   }
 
   isJugador(){
