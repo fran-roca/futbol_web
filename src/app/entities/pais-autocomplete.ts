@@ -1,12 +1,11 @@
 import { AutocompleteDropdown } from "./autocomplete-dropdown";
 import { CatalogService } from "../services/catalog.service";
 
-export class PaisAutocomplete implements AutocompleteDropdown{
-    list: any;
-    filteredList: any;
-    selected: any;
+export class PaisAutocomplete extends AutocompleteDropdown{
 
-    constructor( ) {    }
+    constructor( ) {
+      super();
+    }
 
     filter(catalogService: CatalogService, event: any) {
       let query = event.query;

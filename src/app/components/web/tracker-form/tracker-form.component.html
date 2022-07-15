@@ -24,13 +24,16 @@
             <div class="grid p-fluid">
                 <div class="col-12 xs:col-6">
                     <label>Nombre</label>
-                    <p-autoComplete [(ngModel)]="jugador.selected" [suggestions]="jugador.filteredList?.jugadores" (completeMethod)="jugador.filter(getJugadorService(), $event)" (onSelect)="loadJugadorInfo()" field="nombre" [dropdown]="true">
+                    <p-autoComplete [(ngModel)]="jugador.selected" [suggestions]="jugador.filteredList?.jugadores" 
+                        (completeMethod)="jugador.filter(getJugadorService(), $event)" (onSelect)="loadJugadorInfo()" field="nombre" 
+                        [dropdown]="true">
                         <ng-template let-value pTemplate="item">
                             <div class="p-d-flex p-ai-center">
                                 <div>{{value.nombre}}</div>
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'jugador.errors' class="p-error block">{{jugador.errors['required']}}</small>
                 </div>
             </div>
 
@@ -40,12 +43,14 @@
                 <div class="col-12 md:col-9 lg:col-10">
                     <label>Apodo</label>
                     <input type="text" pInputText [(ngModel)]="jugadorApodo"/>
+                    <small *ngIf = 'validarJugador &&  !jugadorApodo' class="p-error block">Campo obligatorio</small>
                 </div>
                 
                 <div class="col-12 md:col-3 lg:col-2">
                     <label>Año</label>
                     <p-inputNumber [(ngModel)]="jugadorAnio" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="currentYear">
                     </p-inputNumber>
+                    <small *ngIf = 'validarJugador &&  !jugadorAnio' class="p-error block">Campo obligatorio</small>
                 </div>
             </div>
 
@@ -61,12 +66,14 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'equipo.errors' class="p-error block">{{equipo.errors['required']}}</small>
                 </div>
                 
                 <div class="col-12 md:col-2">
                     <label>№</label>
                     <p-inputNumber [(ngModel)]="jugadorNumero" inputId="minmax" inputId="minmax" mode="decimal" [min]="0" [max]="99">
                     </p-inputNumber>
+                    <small *ngIf = 'validarJugador &&  !jugadorNumero' class="p-error block">Campo obligatorio</small>
                 </div>
             </div>
 
@@ -81,6 +88,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'pie.errors' class="p-error block">{{pie.errors['required']}}</small>
                 </div>
                 
                 <div class="col-12 md:col-4">
@@ -92,12 +100,14 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'somatotipo.errors' class="p-error block">{{somatotipo.errors['required']}}</small>
                 </div>
 
                 <div class="col-12 md:col-4">
                     <label>Estatura</label>
                     <p-inputNumber [(ngModel)]="jugadorEstatura" inputId="jEstatura" inputId="minmax" mode="decimal" [min]="149" [max]="206"></p-inputNumber>
                     <p-slider [(ngModel)]="jugadorEstatura" [min]="149" [max]="206"></p-slider>
+                    <small *ngIf = 'validarJugador &&  !jugadorEstatura' class="p-error block">Campo obligatorio</small>
                 </div>
             </div>
 
@@ -114,6 +124,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'paisNacimiento.errors' class="p-error block">{{paisNacimiento.errors['required']}}</small>
                 </div>
                 
                 <div class="col-12 md:col-6">
@@ -126,6 +137,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'paisNacionalidad.errors' class="p-error block">{{paisNacionalidad.errors['required']}}</small>
                 </div>
             </div>
 
@@ -141,6 +153,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'posicion1.errors' class="p-error block">{{posicion1.errors['required']}}</small>
                 </div>
                 
                 <div class="col-12 md:col-6">
@@ -152,6 +165,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'posicion2.errors' class="p-error block">{{posicion2.errors['required']}}</small>
                 </div>
             </div>
 
@@ -197,6 +211,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'seguimiento.errors' class="p-error block">{{seguimiento.errors['required']}}</small>
                 </div>
                 
                 <div class="col-12 md:col-4">
@@ -208,11 +223,13 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'visualizacion.errors' class="p-error block">{{visualizacion.errors['required']}}</small>
                 </div>
 
                 <div class="col-12 md:col-4">
                     <label>Fecha partido</label>
                     <p-calendar [(ngModel)]="valFechaPartido" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                    <small *ngIf = 'validarValoracion &&  !valFechaPartido' class="p-error block">Campo obligatorio</small>
                 </div>
             </div>
 
@@ -222,6 +239,7 @@
                 <div class="col-12">
                     <label>Campeonato</label>
                     <input type="text" pInputText [(ngModel)]="valCampeonato"/>
+                    <small *ngIf = 'validarValoracion &&  !valCampeonato' class="p-error block">Campo obligatorio</small>
                 </div>
             </div>
 
@@ -236,6 +254,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'local.errors' class="p-error block">{{local.errors['required']}}</small>
                 </div>
                 <div class="col-12 md:col-6">
                     <label>Visitante</label>
@@ -246,6 +265,7 @@
                             </div>
                         </ng-template>
                     </p-autoComplete>
+                    <small *ngIf = 'visitante.errors' class="p-error block">{{visitante.errors['required']}}</small>
                 </div>
             </div>
 
@@ -253,6 +273,7 @@
                 <div class="col-12 md:col-12">
                     <label>Descripción</label>
                     <textarea rows="5" [autoResize]="true" pInputTextarea maxlength="1000" [(ngModel)]="valDescripcion"></textarea>
+                    <small *ngIf = 'validarValoracion &&  !valDescripcion' class="p-error block">Campo obligatorio</small>
                 </div>
             </div>
 

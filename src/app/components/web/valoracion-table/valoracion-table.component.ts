@@ -49,7 +49,7 @@ export class ValoracionTableComponent implements OnInit {
   }
 
   async loadValoraciones(){
-    (await (this.valoracionService.getValoracion([], this.jugador.id_jugador))).subscribe({
+    (await (this.valoracionService.getValoracion(this.jugador.id_jugador))).subscribe({
       next: (response: any) => {
         this.valoraciones = response.valoraciones;
         
@@ -65,22 +65,27 @@ export class ValoracionTableComponent implements OnInit {
   }
 
 
-  deleteSelectedValoraciones() {
+  deleteValoracion(valoracion: any) {
+    console.log(valoracion)
     this.confirmationService.confirm({
-        message: '¿Está seguro que quiere borrar las valoraciones seleccionadas?',
+        message: '¿Está seguro que quiere borrar la valoración?',
         header: 'Confirm',
         icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            //this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-            //this.selectedProducts = null;
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+        accept: async () => {
+          (await (this.valoracionService.deleteValoracion(valoracion.id_valoracion))).subscribe({
+            next: (response: any) => {              
+              this.valoraciones = this.valoraciones.filter(val => valoracion!=val);
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Valoración borrada', life: 3000});
+              
+            },
+            error: (err: any) => {
+              this.messageService.add({severity:'error', summary: 'Error', detail: 'Error borrando valoración', life: 3000});
+              
+            }
+          });
         }
     });
   }
-
-  /*exportSelectedProducts(){
-    this.valoraciones = this.valoraciones.filter(val => !this.selectedValoraciones.includes(val));
-  }*/
 
   async exportInforme(){
     let tempBlob = null;
@@ -90,25 +95,14 @@ export class ValoracionTableComponent implements OnInit {
       next: (res: any) => {  
         console.log('Ok exportInformae')
         console.log(res)
- 
+
         tempBlob = new Blob([res], { type: 'application/pdf' });
         this.pdfSrc = window.URL.createObjectURL(tempBlob)
-
-
-        /*this.tempBlob = new Blob([res], { type: 'application/pdf;charset=utf-8;' });
-        this.pdfSrc = window.URL.createObjectURL(this.tempBlob)
-        var link = document.createElement('a');
-        link.href = this.pdfSrc;
-        link.download = "help.pdf";
-        link.click();*/
         this.displayModal = true;
         
       },
       error: (res: any) => {
         console.log(res)
-      },
-      complete: () => {
-        //this.displayModal = true;
       },
     });
   }

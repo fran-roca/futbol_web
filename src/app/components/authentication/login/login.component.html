@@ -23,6 +23,7 @@
           <label>Email</label>
           <span class="p-float-label">
               <input id="float-input" type="text" pInputText [(ngModel)]="email"> 
+              <small *ngIf = 'validarLogin &&  !email' class="p-error block">Campo obligatorio</small>
           </span>
         </div>
         
@@ -30,6 +31,7 @@
           <label>Password</label>
           <span class="p-float-label">
               <input id="float-input" type="password" pInputText [(ngModel)]="password"> 
+              <small *ngIf = 'validarLogin &&  !password' class="p-error block">Campo obligatorio</small>
           </span>
         </div>
         <div>
