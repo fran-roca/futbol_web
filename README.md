@@ -21,6 +21,7 @@
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Usage](#usage)
+- [TODO](#todo)
 - [Built Using](#built_using)
 - [Authors](#authors)
 
@@ -56,6 +57,9 @@ This project intends to have a follow-up of young players to make better decisio
 Once the project is running you can open it on you web explorer, in localhost it would be http://localhost:4200/
 
 You can see the project documentation [here](https://github.com/fran-roca/futbol_web/blob/b649a7a67b06e8e5f83916c3549b02db4de40e46/src/assets/documentation/documentation.md)
+
+## TODO <a name="todo"></a>
+- Translate the web page depending on the locale
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
