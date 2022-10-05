@@ -1,27 +1,79 @@
-# FutbolWeb
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=720px height=400px src="https://drive.google.com/uc?export=view&id=15fTHuD76E-N2x137RIWYUp3CCHnRz8RC" alt="Project logo - stable diffusion"></a>
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
+<h1 align="center">Futbol_web</h1>
 
-## Development server
+<div align="center">
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+</div>
 
-## Code scaffolding
+<p align="center"> This project has been designed to be the frontend of the futbol project.
+    <br> 
+</p>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## 📝 Table of Contents
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Deployment](#deployment)
+- [Usage](#usage)
+- [Built Using](#built_using)
+- [Authors](#authors)
 
-## Running unit tests
+## 🧐 About <a name = "about"></a>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This project intends to have a follow-up of young players to make better decisions when signing for the youth soccer club. This project has been deployed to AWS and is currently used by over 50 scouts distributed in Europe creating networking between them.
 
-## Running end-to-end tests
+[futbol](https://github.com/fran-roca/futbol) and [futbol_web](https://github.com/fran-roca/futbol_web) was developed in 3 weeks to help a friend with his use case. It was released to production with the minimum number of features and will be improved in the future as will need.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+[futbol_web](https://github.com/fran-roca/futbol_web) has been developed with Angular and deployed in AWS Amplify.
 
-## Further help
+## 🏁 Getting Started <a name = "getting_started"></a>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Prerequisites
+
+- You must have an instance of [futbol](https://github.com/fran-roca/futbol) running.
+- You must have a MySQL database created, you can find the script [here](https://github.com/fran-roca/futbol/tree/master/model/scripts).
+<br/>
+<a href="https://github.com/fran-roca/futbol/blob/d6d6e26ed651f6ef296e2a15296046757c19da28/model/model.png" rel="noopener">
+ <img width=700px height=600px src="model\model.png" alt="Model"></a>
+ <br/>
+
+### Installing
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/fran-roca/futbol_web
+   ```
+2. Build the project. The build artifacts will be stored in the `dist/` directory.
+   ```sh
+   ng build
+   ```
+3. Config the [environment.ts](src\environments\environment.ts)
+
+## 🎈 Usage <a name="usage"></a>
+
+Once the project is running you can open it on you web explorer, in localhost it would be http://localhost:4200/
+
+You can see the project documentation [here](src\assets\documentation\documentation.md)
+
+## 🚀 Deployment <a name = "deployment"></a>
+
+Futbol is divided into 3 modules and deployed in AWS:
+- Database [MySQL](https://github.com/fran-roca/futbol/tree/master/model/scripts) - EC2
+- Backend [futbol](https://github.com/fran-roca/futbol) - Elastic Beanstalk
+- Frontend [futbol_web](https://github.com/fran-roca/futbol_web) - AWS Amplify
+
+## ⛏️ Built Using <a name = "built_using"></a>
+
+- [AWS](https://aws.amazon.com/) - Hosting Services
+- [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4
+- [Primefaces](https://www.primefaces.org/primeng/) - Angular UI component
+
+## ✍️ Authors <a name = "authors"></a>
+
+- [@fran-roca](https://github.com/fran-roca) - Idea & Initial work
