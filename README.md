@@ -49,7 +49,7 @@ This project intends to have a follow-up of young players to make better decisio
    ```sh
    ng build
    ```
-3. Config the [environment.ts](src\environments\environment.ts)
+3. Config the [environment.ts](src/environments/environment.ts)
 
 ## 🎈 Usage <a name="usage"></a>
 
