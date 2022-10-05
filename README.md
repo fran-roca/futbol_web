@@ -38,10 +38,6 @@ This project intends to have a follow-up of young players to make better decisio
 
 - You must have an instance of [futbol](https://github.com/fran-roca/futbol) running.
 - You must have a MySQL database created, you can find the script [here](https://github.com/fran-roca/futbol/tree/master/model/scripts).
-<br/>
-<a href="https://github.com/fran-roca/futbol/blob/d6d6e26ed651f6ef296e2a15296046757c19da28/model/model.png" rel="noopener">
- <img width=700px height=600px src="model\model.png" alt="Model"></a>
- <br/>
 
 ### Installing
 
@@ -59,7 +55,7 @@ This project intends to have a follow-up of young players to make better decisio
 
 Once the project is running you can open it on you web explorer, in localhost it would be http://localhost:4200/
 
-You can see the project documentation [here](src\assets\documentation\documentation.md)
+You can see the project documentation [here](https://github.com/fran-roca/futbol_web/blob/b649a7a67b06e8e5f83916c3549b02db4de40e46/src/assets/documentation/documentation.md)
 
 ## 🚀 Deployment <a name = "deployment"></a>
 

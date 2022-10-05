@@ -42,11 +42,10 @@ Home<a name = "homepage"></a>
 ![](https://drive.google.com/uc?export=view&id=122NE99kxZtpsfOmmzMdBn150LEWzVA-a)
 
 Evaluations<a name = "evaluationpage"></a>
+----
 
 ![](https://drive.google.com/uc?export=view&id=1To5n7nba30txUr-SSbhoEmlI_6CLnVrH)
 
-
-------------------------------------------------------------------------------------------------
 
 * * *
 
